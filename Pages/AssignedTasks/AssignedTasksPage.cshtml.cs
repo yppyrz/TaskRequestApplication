@@ -16,13 +16,13 @@ namespace TaskRequestApplication.Pages.AssignedTasks
         private readonly CustomerService _customerService;
 
         private readonly ManagerRepository _managerRepository;
-
+        private readonly EmailService _emailService;
         private readonly EmployeeRepository _employeeRepository;
 
         private readonly TicketRepository _ticketRepository;
         private readonly TicketService _ticketService;
 
-        public AssignedTasksPageModel(CustomerRepository customerRepository, CustomerService customerService, TicketRepository ticketRepository, TicketService ticketService, EmployeeRepository employeeRepository,ManagerRepository managerRepository)
+        public AssignedTasksPageModel(CustomerRepository customerRepository, CustomerService customerService, TicketRepository ticketRepository, TicketService ticketService, EmployeeRepository employeeRepository,ManagerRepository managerRepository,EmailService emailService)
         {
             _customerRepository = customerRepository;
             _customerService = customerService;
@@ -30,6 +30,7 @@ namespace TaskRequestApplication.Pages.AssignedTasks
             _ticketService = ticketService;
             _employeeRepository = employeeRepository;
             _managerRepository = managerRepository;
+            _emailService = emailService;
         }
         [BindProperty]
         public List<Ticket> tickets { get; set; }
@@ -113,7 +114,7 @@ namespace TaskRequestApplication.Pages.AssignedTasks
                     var managerid = employee.managerId;
                     var manager = _managerRepository.FindManager(managerid);
                     var managerMailAddress = manager.ManagerMailAddress; // Manager' a mail atýlýr.
-
+                    _emailService.SendEmail(from: "nbuy.oglen@gmail.com", to: managerMailAddress, message: "Assigned", subject: "Manager");
                 }
                 catch (Exception ex)
                 {

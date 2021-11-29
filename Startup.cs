@@ -41,6 +41,11 @@ namespace TaskRequestApplication
             services.AddTransient<TicketService>();
             services.AddTransient<EmployeeService>();
             services.AddTransient<ManagerService>();
+            services.AddTransient<EmailService>();
+
+
+
+
 
 
 

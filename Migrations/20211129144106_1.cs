@@ -27,11 +27,25 @@ namespace TaskRequestApplication.Migrations
                     EmployeeID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeMailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkingHour = table.Column<int>(type: "int", nullable: false)
+                    WorkingHour = table.Column<int>(type: "int", nullable: false),
+                    managerId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.EmployeeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Managers",
+                columns: table => new
+                {
+                    ManagerID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ManagerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ManagerMailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Managers", x => x.ManagerID);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,9 +62,9 @@ namespace TaskRequestApplication.Migrations
                     TicketCompletedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TicketStatus = table.Column<int>(type: "int", nullable: false),
                     TicketCustomerID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TicketPriority = table.Column<int>(type: "int", nullable: false),
-                    TicketDifficultyLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmployeeID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    TicketDifficultyLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,6 +79,9 @@ namespace TaskRequestApplication.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Managers");
 
             migrationBuilder.DropTable(
                 name: "Tickets");

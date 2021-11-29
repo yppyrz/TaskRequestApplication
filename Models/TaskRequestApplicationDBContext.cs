@@ -14,8 +14,8 @@ namespace TaskRequestApplication.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=.;Database=TaskRequestAppDB;uid=sa;pwd=1234;");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-O23KDVQ;Database=TaskRequestApplicationDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=.;Database=TaskRequestAppDB;uid=sa;pwd=1234;");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-O23KDVQ;Database=TaskRequestApplicationDB;Trusted_Connection=True;");
 
             base.OnConfiguring(optionsBuilder);
 

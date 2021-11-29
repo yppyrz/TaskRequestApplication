@@ -10,6 +10,6 @@ namespace TaskRequestApplication.Models
         public string ManagerID { get; set; } = Guid.NewGuid().ToString(); // Manager id number
         public string ManagerName { get; set; } // Manager name
         public string ManagerMailAddress { get; set; } // Manager mail adresi
-        public List<string> employeeList { get; set; } // Manager'in yönettiği employee listesi
+        //public List<string> employeeList { get; set; } // Manager'in yönettiği employee listesi
     }
 }

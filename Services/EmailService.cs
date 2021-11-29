@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
-using TaskRequestApplication.Models;
 
 namespace TaskRequestApplication.Services
 {
     public class EmailService
     {
-        public string from { get; set; } = "yppyrz@gmail.com";
-        void SendMailCustomer(Customer customer, Ticket ticket)
+        public void SendEmail(string from, string to, string message, string subject)
         {
-            var to = customer.CustomerMailAddress;
-            var messega = $"{ticket.TicketID} numaralı ticket sisteme başarılı şekilde kaydedilmiştir.";
-            var subject = "Başarılı Ticket Kaydı.";
-            
+            MailMessage msg = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+            msg.From = new MailAddress(from);
+            msg.To.Add(new MailAddress(to));
+            msg.Subject = subject;
+            msg.IsBodyHtml = true; //to make message body as html  
+            msg.Body = message;
+            smtp.Port = 587;
+            smtp.Host = "smtp.gmail.com"; //for gmail host  
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("nbuy.oglen@gmail.com", "Nbuy12345");
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.Send(msg);
         }
     }
 }

@@ -14,18 +14,19 @@ namespace TaskRequestApplication.Pages.ClosedTasks
     {
         private readonly CustomerRepository _customerRepository;
         private readonly CustomerService _customerService;
-
+        private readonly EmailService _emailService;
         private readonly EmployeeRepository _employeeRepository;
 
         private readonly TicketRepository _ticketRepository;
         private readonly TicketService _ticketService;
-        public ClosedTasksPageModel(CustomerRepository customerRepository, CustomerService customerService, TicketRepository ticketRepository, TicketService ticketService, EmployeeRepository employeeRepository)
+        public ClosedTasksPageModel(CustomerRepository customerRepository, CustomerService customerService, TicketRepository ticketRepository, TicketService ticketService, EmployeeRepository employeeRepository,EmailService emailService)
         {
             _customerRepository = customerRepository;
             _customerService = customerService;
             _ticketRepository = ticketRepository;
             _ticketService = ticketService;
             _employeeRepository = employeeRepository;
+            _emailService = emailService;
         }
         [BindProperty]
         public List<Ticket> tickets { get; set; }
@@ -85,6 +86,7 @@ namespace TaskRequestApplication.Pages.ClosedTasks
                     var employeeid = ticket.EmployeeID;
                     var employee = _employeeRepository.FindEmployee(employeeid);
                     var employeeMailAddress = employee.EmployeeMailAddress; // Employee'ye review maili atýlacak.
+                    _emailService.SendEmail(from: "nbuy.oglen@gmail.com", to: employeeMailAddress, message: "Review", subject: "Employee");
 
                 }
                 catch (Exception ex)
@@ -119,7 +121,7 @@ namespace TaskRequestApplication.Pages.ClosedTasks
                     var customerid = ticket.TicketCustomerID;
                     var customer = _customerRepository.FindCustomer(customerid);
                     var customerMailAddress = customer.CustomerMailAddress; // Customer'a completed maili atýlacak.
-
+                    _emailService.SendEmail(from: "nbuy.oglen@gmail.com", to: customerMailAddress, message: "Completed", subject: "Customer");
                 }
                 catch (Exception ex)
                 {

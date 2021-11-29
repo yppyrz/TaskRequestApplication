@@ -19,12 +19,15 @@ namespace TaskRequestApplication.Pages.TicketForm
         private readonly TicketRepository _ticketRepository;
         private readonly TicketService _ticketService;
 
-        public TicketCreateModel(CustomerRepository customerRepository, CustomerService customerService, TicketRepository ticketRepository, TicketService ticketService)
+        private readonly EmailService _emailService;
+
+        public TicketCreateModel(CustomerRepository customerRepository, CustomerService customerService, TicketRepository ticketRepository, TicketService ticketService,EmailService emailService)
         {
             _customerRepository = customerRepository;
             _customerService = customerService;
             _ticketRepository = ticketRepository;
             _ticketService = ticketService;
+            _emailService = emailService;
         }
 
 
@@ -55,8 +58,8 @@ namespace TaskRequestApplication.Pages.TicketForm
             if (ModelState.IsValid)
             {
 
-                try
-                {
+                //try
+                //{
 
                     var ticket = new Ticket();
                     ticket.TicketSubject = Subject;
@@ -67,23 +70,25 @@ namespace TaskRequestApplication.Pages.TicketForm
                     var SelectedCustomer = _customerRepository.FindCustomer(SelectedCustomerID);
                     _customerService.AddTicket(SelectedCustomer, ticket);
                     var result = _ticketRepository.FindTicket(ticketId: ticket.TicketID); // Ticket database'de var mý
+                    var emailCustomer = SelectedCustomer.CustomerMailAddress; // Customer mail, TicketID mail atýlacak...
 
                     if (result != null)
                     {
                         ViewData["Message"] = "Kayýt Baþarýlýdýr";
+                        _emailService.SendEmail(from:"nbuy.oglen@gmail.com", to: emailCustomer, message:"1 nolu ticket oluþturulmuþtur",subject:"Ticket");
                     }
                     else
                     {
                         ViewData["Message"] = "Tekrar deneyiniz";
                     }
                      
-                    var emailCustomer = SelectedCustomer.CustomerMailAddress; // Customer mail, TicketID mail atýlacak...
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("Hata", ex.Message);
-                    ViewData["Message"] = "Tekrar deneyiniz";
-                }
+
+                //}
+                //catch (Exception ex)
+                //{
+                //    ModelState.AddModelError("Hata", ex.Message);
+                //    ViewData["Message"] = "Tekrar deneyiniz";
+                //}
             } 
         }
     }

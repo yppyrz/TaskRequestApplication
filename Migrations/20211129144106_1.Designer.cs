@@ -10,7 +10,7 @@ using TaskRequestApplication.Models;
 namespace TaskRequestApplication.Migrations
 {
     [DbContext(typeof(TaskRequestApplicationDBContext))]
-    [Migration("20211129033025_1")]
+    [Migration("20211129144106_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,9 +51,28 @@ namespace TaskRequestApplication.Migrations
                     b.Property<int>("WorkingHour")
                         .HasColumnType("int");
 
+                    b.Property<string>("managerId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("EmployeeID");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("TaskRequestApplication.Models.Manager", b =>
+                {
+                    b.Property<string>("ManagerID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ManagerMailAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ManagerID");
+
+                    b.ToTable("Managers");
                 });
 
             modelBuilder.Entity("TaskRequestApplication.Models.Ticket", b =>
