@@ -1,0 +1,67 @@
+﻿@page
+@model TaskRequestApplication.Pages.TicketTechDetails.TicketTechDetailsPageModel
+@{
+}
+
+
+<form method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Subject </th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Customer</th>
+            </tr>
+        </thead>
+        <tbody>
+        <td><label>@Model.TicketSubject</label></td>
+        <td><label>@Model.TicketDescription</label></td>
+        <td><label>@Model.TicketDate</label></td>
+        <td><label>@Model.customerName</label></td>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Priority</th>
+            </tr>
+        </thead>
+        <tbody>
+        <td>
+            @for (int i = 0; i < Model.Priorities.Length; i++)
+            {
+                <input type="radio" asp-for="@Model.Priority" value="@Model.Priorities[i]" /> @Model.Priorities[i]<br />
+
+            }
+        </td>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Difficulty Level</th>
+            </tr>
+        </thead>
+        <tbody>
+        <td>
+            @for (int i = 0; i < Model.difficultyLevels.Length; i++)
+            {
+                <input type="radio" asp-for="@Model.difficultyLevel" value="@Model.difficultyLevels[i]" />@Model.difficultyLevels[i]<br />
+            }
+        </td>
+        </tbody>
+    </table>
+    <input type="hidden" asp-for="ticket.TicketCustomerID" />
+    <input type="hidden" asp-for="ticket.TicketID" />
+    <input type="hidden" asp-for="ticket.TicketStatus" />
+    <input type="hidden" asp-for="ticket.TicketSubject" />
+    <input type="hidden" asp-for="ticket.TicketDescription" />
+    <input type="hidden" asp-for="ticket.TicketCreatedDate" />
+    <div>
+        <input type="submit" value="Save" asp-page-handler="Save" />
+    </div>
+    <div>@ViewData["Message"]</div>
+</form>

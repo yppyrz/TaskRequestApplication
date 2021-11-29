@@ -1,0 +1,72 @@
+﻿@page
+@model TaskRequestApplication.Pages.ReadyForAssignment.ReadyForAssignmentPageModel
+@{
+}
+
+<form method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Difficulty Level</th>
+                <th>Rank(Priority)</th>
+                <th>Assign</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Tickets.Length; i++)
+            {
+            <tr>
+                <input type="hidden" asp-for="Tickets[i].TicketCustomerID" />
+                <input type="hidden" asp-for="Tickets[i].TicketID" />
+                <input type="hidden" asp-for="Tickets[i].TicketStatus" />
+                <input type="hidden" asp-for="Tickets[i].TicketSubject" />
+                <input type="hidden" asp-for="Tickets[i].TicketDescription" />
+                <input type="hidden" asp-for="Tickets[i].TicketCreatedDate" />
+                <input type="hidden" asp-for="employee.ticketsID" />
+                <input type="hidden" asp-for="EmployeeList" />
+
+
+
+
+
+
+
+
+                <td>
+                    <label>@Model.Tickets[i].TicketSubject</label>
+
+                </td>
+                <td>
+                    <label>@Model.Tickets[i].TicketDescription</label>
+
+
+                </td>
+                <td>
+                    <label>@Model.Tickets[i].TicketDifficultyLevel</label>
+
+                </td>
+                <td>
+                    <label>@Model.Tickets[i].TicketPriority</label>
+
+                </td>
+                <td>
+                    @Html.DropDownListFor(x => x.SelectedEmployeeID, Model.Employeee)
+                    @*<select asp-for="selectedEmployee" asp-items="Model.Employeee">
+                        <option value="value"></option>
+                    </select>*@
+                    <input type="hidden" value="@Model.Tickets[i].TicketID" asp-for="SelectedTicketID" asp-page-handler="Save" />
+                </td>
+                <td>
+                    <input type="submit" asp-page-handler="Save" value="Save" />
+                </td>
+
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div>@ViewData["Message"]</div>
+</form>

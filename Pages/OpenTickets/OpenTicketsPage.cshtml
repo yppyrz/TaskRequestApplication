@@ -1,0 +1,67 @@
+﻿@page
+@model TaskRequestApplication.Pages.OpenTickets.OpenTicketsPageModel
+@{
+}
+
+
+<form method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.OpenTickets.Count; i++)
+            {
+            <tr>
+                <input type="hidden" asp-for="OpenTickets[i].TicketCustomerID" />
+                <input type="hidden" asp-for="OpenTickets[i].TicketID" />
+                <input type="hidden" asp-for="OpenTickets[i].TicketStatus" />
+                <input type="hidden" asp-for="OpenTickets[i].TicketSubject" />
+                <input type="hidden" asp-for="OpenTickets[i].TicketDescription" />
+                <input type="hidden" asp-for="OpenTickets[i].TicketCreatedDate" />
+
+
+                <td>
+                    <label>@Model.OpenTickets[i].TicketSubject</label>
+
+                </td>
+                <td>
+                    <label>@Model.OpenTickets[i].TicketDescription</label>
+
+
+                </td>
+                <td>
+                    <label>@Model.OpenTickets[i].TicketCreatedDate</label>
+
+
+                </td>
+                <td>
+                    <a asp-page="/TicketTechDetails/TicketTechDetailsPage" asp-route-id="@Model.OpenTickets[i].TicketID">Set Tech Details</a>
+
+                </td>
+
+
+            </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>

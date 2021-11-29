@@ -1,0 +1,51 @@
+﻿@page
+@model TaskRequestApplication.Pages.CompletedTasks.CompletedTasksPageModel
+@{
+}
+
+<form method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Ticket Number</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Completed Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Tickets.Length; i++)
+            {
+                <tr>
+                    <input type="hidden" asp-for="tickets[i].TicketCustomerID" />
+                    <input type="hidden" asp-for="tickets[i].TicketID" />
+                    <input type="hidden" asp-for="tickets[i].TicketStatus" />
+                    <input type="hidden" asp-for="tickets[i].TicketSubject" />
+                    <input type="hidden" asp-for="tickets[i].TicketDescription" />
+                    <input type="hidden" asp-for="tickets[i].TicketCreatedDate" />
+                    <input type="hidden" asp-for="employees[i].EmployeeName" />
+                    <input type="hidden" asp-for="employees[i].EmployeeID" />
+
+                    <td>
+                        <label>@Model.Tickets[i].TicketSubject</label>
+
+                    </td>
+                    <td>
+                        <label>@Model.Tickets[i].TicketDescription</label>
+
+
+                    </td>
+                    <td>
+                        <label>@Model.employees[i].EmployeeName</label>
+
+                    </td>
+                    <td>
+                        <label>@Model.Tickets[i].</label>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>@ViewData["Message"]</div>
+</form>

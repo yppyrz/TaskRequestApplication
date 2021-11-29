@@ -1,0 +1,29 @@
+﻿@page
+@model TaskRequestApplication.Pages.TicketForm.TicketCreateModel
+@{
+}
+
+<form method="post">
+    <div>
+        <label for="Subject">Subject:</label>
+        <input type="text" asp-for="Subject" placeholder="Subject" />
+
+    </div>
+
+    <div>
+        <label for="Description">Description:</label>
+        <input type="text" asp-for="Description" placeholder="Description" />
+
+    </div>
+
+    <div>
+        <select asp-for="SelectedCustomerID" asp-items="Model.Customers">
+            <option value="value">Customers</option>
+        </select>
+    </div>
+
+    <div>
+        <input type="submit" value="Save" asp-page-handler="Save" />
+    </div>
+    <div>@ViewData["Message"]</div>
+</form>
